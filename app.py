@@ -1,23 +1,33 @@
 import streamlit as st
-import openai
+import requests
+import json
 
-openai.api_key = "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"
+OPENAI_API_KEY = "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"
 
 def translate_code(code, source_language, target_language):
     prompt = f"Translate this code from {source_language} to {target_language}:\n\n{code}"
     
-    response = openai.Completion.create(
-        engine="davinci-codex",
-        prompt=prompt,
-        max_tokens=150,
-        temperature=0.3,
-        top_p=1.0,
-        n=1,
-        stop=None,
-        log_level="info"
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {OPENAI_API_KEY}"
+    }
+    data = {
+        "prompt": prompt,
+        "max_tokens": 150,
+        "temperature": 0.3,
+        "top_p": 1.0,
+        "n": 1,
+        "stop": None,
+        "log_level": "info"
+    }
+    
+    response = requests.post(
+        "https://api.openai.com/v1/engines/davinci-codex/completions",
+        headers=headers,
+        data=json.dumps(data)
     )
     
-    translated_code = response.choices[0].text.strip()
+    translated_code = response.json()["choices"][0]["text"].strip()
     
     return translated_code
 
