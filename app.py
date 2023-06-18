@@ -1,11 +1,8 @@
 import streamlit as st
-
 import os
-try:
-    import openai
-    openai.api_key = "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"
-except:
-    pass
+import openai
+openai.api_key = "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"
+
 
 def translate_code(code, source_language, target_language):
     prompt = f"Translate this code from {source_language} to {target_language}:\n\n{code}"
