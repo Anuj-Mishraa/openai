@@ -3,7 +3,6 @@ import requests
 import json
 
 OPENAI_API_KEY = "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"
-
 def translate_code(code, source_language, target_language):
     prompt = f"Translate this code from {source_language} to {target_language}:\n\n{code}"
     
