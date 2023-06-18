@@ -26,11 +26,7 @@ def translate_code(code, source_language, target_language):
         data=json.dumps(data)
     )
 
-    choices = response.json()["choices"]
-    if choices:
-        translated_code = choices[0]["text"].strip()
-    else:
-        translated_code = "No translation found."
+    translated_code = response.json().get("choices")[0].get("text").strip() if response.json().get("choices") else "No translation found."
 
     return translated_code
 
