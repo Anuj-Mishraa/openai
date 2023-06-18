@@ -1,7 +1,10 @@
 import streamlit as st
 import os
-import openai
-openai.api_key = "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"
+try:
+    import openai
+    openai.api_key = "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"
+except:
+    pass
 
 
 def translate_code(code, source_language, target_language):
